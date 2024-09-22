@@ -1,14 +1,8 @@
 const express = require('express')
 const app = express();
+const {isAdminAuth} = require('./middelware/admin');
 
-app.use('/admin', (req,res,next)=> {
-    const token = 'abc';
-    const isAuth = token === 'abc';
-    console.log("admin route is been called")
-    if(isAuth){
-        next();
-    }
-})
+app.use('/admin',isAdminAuth)
 
 
 app.get('/admin/getuser' , (req,res,next) =>{
