@@ -4,10 +4,14 @@ const {isAdminAuth} = require('./middelware/admin');
 const {isUserAuth} = require('./middelware/user')
 
 app.use('/admin',isAdminAuth);
-app.use('/user' , isUserAuth);
+// app.use('/user' , isUserAuth);
 
-app.delete('/user/deleteuser' , (req,res) => {
+app.delete('/user/deleteuser' ,isUserAuth , (req,res) => {
     res.send("user deleted sucessfully")
+})
+
+app.post('/user/postuser', (req,res,next) => {
+    res.send({userData: {firstName:'karthik' , lastName:'Amarneni'}})
 })
 app.get('/admin/getuser' , (req,res,next) =>{
     console.log("admin getuser is been is called")

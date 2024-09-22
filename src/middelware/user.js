@@ -1,10 +1,11 @@
 const isUserAuth = (req,res,next) => {
-    const token = "Users";
+    const token = "User";
     const isUser = token === "User";
     if(!isUser){
-       res.status('401').send("unauthorized")
+       res.status(401).send("unauthorized")
     }else{
-        res.send('user data is sended')
+        // res.send('user data is sended')
+        next()
     }
 }
 
