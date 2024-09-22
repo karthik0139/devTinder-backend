@@ -7,7 +7,14 @@ app.use('/admin',isAdminAuth);
 // app.use('/user' , isUserAuth);
 
 app.delete('/user/deleteuser' ,isUserAuth , (req,res) => {
-    res.send("user deleted sucessfully")
+    // res.send("user deleted sucessfully")
+    // throw new Error("error occurend in delete user")
+
+    try{
+        res.send('delete user sucess')
+    }catch{
+         throw new Error("some wrong")
+    }
 })
 
 app.post('/user/postuser', (req,res,next) => {
@@ -20,6 +27,12 @@ app.get('/admin/getuser' , (req,res,next) =>{
 app.get('/adim/getadminData' , (req,res,next) =>{
     console.log("admin getAdminData is been is called")
     res.send('admin data is seen sent')
+ })
+
+ app.use('/', (err,req,res,next) => {
+    if(err){
+        res.status(500).send("something went wrong")
+    }
  })
 
 
