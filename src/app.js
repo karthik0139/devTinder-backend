@@ -1,23 +1,24 @@
 const express = require('express')
 const app = express();
 
-app.get('/user',
-   [ (req,res, next) => {
-        console.log("first server is called");
-        // res.send("first server return a data")
+app.use('/admin', (req,res,next)=> {
+    const token = 'abc';
+    const isAuth = token === 'abc';
+    console.log("admin route is been called")
+    if(isAuth){
         next();
-    },
-    (req,res,next) => {
-        console.log("second server is called")
-         res.send("second server return a data")
-        next()
-    }],
-    (req,res,next) => {
-        console.log("third server is called")
-        // res.send("third server returns data")
-        // next()
     }
-)
+})
+
+
+app.get('/admin/getuser' , (req,res,next) =>{
+    console.log("admin getuser is been is called")
+   res.send('admin data is seen sent')
+})
+app.get('/adim/getadminData' , (req,res,next) =>{
+    console.log("admin getAdminData is been is called")
+    res.send('admin data is seen sent')
+ })
 
 
 app.listen(8080,() => {
