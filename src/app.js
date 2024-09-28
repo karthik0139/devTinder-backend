@@ -13,7 +13,7 @@ app.post('/signup' , async (req,res) => {
       res.send(saveUsersData)
 
     }catch(error){
-        res.status(401).send("something went wrong");
+        res.status(401).send(error.message);
     }
 })
 
@@ -42,7 +42,7 @@ app.patch('/updateuser' ,async (req,res) => {
    const userId= req.body.id;
    const newData = req.body;
    try{
-     const updateUserData = await Users.findByIdAndUpdate({_id:userId} , newData , {returnDocument:'after'});
+     const updateUserData = await Users.findByIdAndUpdate({_id:userId} , newData , {returnDocument:'after' , runValidators: true});
      res.send(updateUserData)
    }catch(error){
      res.status(401).send("something went wrong")
