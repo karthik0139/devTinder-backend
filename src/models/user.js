@@ -2,22 +2,22 @@ const mongoose = require('mongoose');
 
 const usersSchema = new mongoose.Schema({
     firstName:{
-        type: string
+        type: String
     },
     lastName:{
-        type: string
+        type: String
     },
     age:{
-        type: string
+        type: String
     },
     emailId:{
-        type: string
+        type: String
     },
     password:{
-        type: string
+        type: String
     },
     gender:{
-        type: string
+        type: String
     }
 });
 
