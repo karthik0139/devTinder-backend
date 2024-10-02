@@ -6,6 +6,7 @@ var jwt = require('jsonwebtoken');
 const saltRounds = 10;
 const Users = require('./models/user');
 const isValidation = require('./utills/validators');
+const {isUserAuth} = require('./middelware/user');
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
@@ -93,20 +94,10 @@ app.get('/user' , async(req,res) => {
    
 })
 
-app.get('/profile' , async(req, res) => {
+app.get('/profile' , isUserAuth , async(req, res) => {
     try{
-       const {token} = req.cookies;
-       if(!token){
-          throw new Error("Invalid token")
-       }
-       const getDecodeToken = await jwt.verify(token , "karthikamarneni");
-       const {_id} = getDecodeToken;
-       const getUser = await Users.findById(_id);
-       if(!getUser){
-          throw new Error("User Data Not Found")
-       }else{
-         res.send(getUser)
-       }
+       const user = req.user;
+       res.send(user)
     }catch(err){
        res.status(401).send(err.message)
     }
